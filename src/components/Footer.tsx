@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.footerInner}>
-        <span>© {year} ClayTint</span>
+        <span>© {year} Rita Krastiņa</span>
 
         <div className={styles.themeSwitch} role="group" aria-label="Theme">
           <button
