@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ClayTint</title>
+    <meta name="description" content="Polymer clay colour mixing guide" />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon-180x180.png" />
+
+    <meta
+      name="theme-color"
+      content="#efefec"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#151615"
+      media="(prefers-color-scheme: dark)"
+    />
+    <script>
+      // Apply a saved light/dark choice before first paint
+      try {
+        const theme = localStorage.getItem('theme')
+        if (theme === 'light' || theme === 'dark')
+          document.documentElement.dataset.theme = theme
+      } catch {}
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

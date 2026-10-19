@@ -1,0 +1,34 @@
+.header {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px clamp(16px, 5vw, 40px);
+}
+
+.title {
+  font-family: var(--serif);
+  font-size: 3rem;
+
+  span {
+    background: linear-gradient(
+      90deg,
+      var(--tint-1),
+      var(--tint-2) 25%,
+      var(--tint-3) 50%,
+      var(--tint-4) 75%,
+      var(--tint-5)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.description {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+}

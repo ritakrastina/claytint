@@ -1,0 +1,40 @@
+.footer {
+  border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px clamp(16px, 5vw, 40px) 40px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.theme-switch {
+  display: flex;
+  gap: 2px;
+}
+
+.theme-switch button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+}
+
+.theme-switch button:hover {
+  color: var(--text);
+}
+
+.theme-switch button[aria-pressed='true'] {
+  background: var(--surface-3);
+  color: var(--text);
+}
