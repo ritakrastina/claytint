@@ -1,12 +1,13 @@
 .colour-picker {
   display: grid;
   gap: 16px;
-  max-width: 320px;
-  margin-inline: auto;
 }
 
 .wheel {
   position: relative;
+  justify-self: center;
+  width: 100%;
+  max-width: 320px;
   aspect-ratio: 1;
   border: 1px solid var(--border);
   border-radius: 50%;
@@ -93,7 +94,7 @@
 .hex-input {
   flex: 1;
   min-width: 0;
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-family: var(--mono);
   font-size: 1rem;
   color: var(--text);
