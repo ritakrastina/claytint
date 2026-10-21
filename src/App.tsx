@@ -6,7 +6,7 @@ import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { Step } from './components/Step'
 
-function App() {
+export function App() {
   const [colour, setColour] = useState<string>()
 
   return (
@@ -31,5 +31,3 @@ function App() {
     </div>
   )
 }
-
-export default App
