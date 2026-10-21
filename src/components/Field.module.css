@@ -1,0 +1,19 @@
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.value {
+  font-family: var(--mono);
+  color: var(--text);
+}

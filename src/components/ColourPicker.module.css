@@ -1,0 +1,108 @@
+.colour-picker {
+  display: grid;
+  gap: 16px;
+}
+
+.wheel {
+  position: relative;
+  justify-self: center;
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  touch-action: none;
+  cursor: crosshair;
+  /* Hue around the circle, saturation from centre to edge */
+  background:
+    radial-gradient(closest-side, hsl(0 0% 50%), hsl(0 0% 50% / 0)),
+    conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.marker {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--accent-strong);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.slider {
+  appearance: none;
+  height: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent-strong);
+    border-radius: 50%;
+    background: var(--surface);
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent-strong);
+    border-radius: 50%;
+    background: var(--surface);
+  }
+}
+
+.hex-row {
+  display: flex;
+  gap: 8px;
+}
+
+.swatch {
+  flex-shrink: 0;
+  width: 80px;
+  height: auto;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: calc(var(--radius-sm) - 1px);
+  }
+
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: calc(var(--radius-sm) - 1px);
+  }
+}
+
+.hex-input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  &[aria-invalid='true'] {
+    outline-color: var(--rough);
+  }
+}
