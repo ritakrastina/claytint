@@ -46,8 +46,10 @@ export function useTheme() {
     }
   }
 
-  const resolved: Theme = theme ?? (systemDark ? 'dark' : 'light')
-  return { resolved, setTheme }
+  return {
+    theme: theme ?? (systemDark ? 'dark' : 'light'),
+    setTheme,
+  }
 }
 
 function parse(value: string | undefined): Theme | undefined {

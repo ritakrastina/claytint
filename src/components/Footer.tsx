@@ -4,7 +4,7 @@ import styles from './Footer.module.css'
 const year = new Date().getFullYear()
 
 export function Footer() {
-  const { resolved, setTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
 
   return (
     <footer className={styles.footer}>
@@ -16,7 +16,7 @@ export function Footer() {
             type="button"
             aria-label="Light mode"
             title="Light mode"
-            aria-pressed={resolved === 'light'}
+            aria-pressed={theme === 'light'}
             onClick={() => setTheme('light')}
           >
             <SunIcon />
@@ -25,7 +25,7 @@ export function Footer() {
             type="button"
             aria-label="Dark mode"
             title="Dark mode"
-            aria-pressed={resolved === 'dark'}
+            aria-pressed={theme === 'dark'}
             onClick={() => setTheme('dark')}
           >
             <MoonIcon />
