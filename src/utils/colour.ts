@@ -23,7 +23,8 @@ export const hslToHex = ({ h, s, l }: Hsl): string => {
 
 const HEX_PATTERN = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i
 
-export const hexToHsl = (hex: string): Hsl | null => {
+// Accepts 3 or 6 digits with or without '#', returns lowercase #rrggbb
+export const normaliseHex = (hex: string): string | null => {
   const match = HEX_PATTERN.exec(hex.trim())
   if (!match) return null
 
@@ -31,6 +32,14 @@ export const hexToHsl = (hex: string): Hsl | null => {
     match[1].length === 3
       ? [...match[1]].map((digit) => digit + digit).join('')
       : match[1]
+
+  return `#${digits.toLowerCase()}`
+}
+
+export const hexToHsl = (hex: string): Hsl | null => {
+  const normalised = normaliseHex(hex)
+  if (!normalised) return null
+  const digits = normalised.slice(1)
 
   // red, green, blue
   const [r, g, b] = [0, 2, 4].map(

@@ -1,0 +1,44 @@
+.hex-row {
+  display: flex;
+  gap: 8px;
+}
+
+.hex-input {
+  flex: 1;
+  min-width: 100px;
+  padding: 8px 12px;
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  &[aria-invalid='true'] {
+    outline-color: var(--rough);
+  }
+}
+
+.swatch {
+  flex-shrink: 0;
+  width: 80px;
+  height: auto;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: calc(var(--radius-sm) - 1px);
+  }
+
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: calc(var(--radius-sm) - 1px);
+  }
+}

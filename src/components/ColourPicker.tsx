@@ -5,6 +5,7 @@ import { hexToHsl, hslToHex } from '../utils/colour'
 import type { Hsl } from '../utils/colour'
 import styles from './ColourPicker.module.css'
 import { Field } from './Field'
+import { HexInput } from './HexInput'
 
 interface ColourPickerProps {
   onChange: (hex: string) => void
@@ -14,7 +15,6 @@ const DEFAULT_HSL: Hsl = { h: 0, s: 0, l: 50 }
 
 export function ColourPicker({ onChange }: ColourPickerProps) {
   const [hsl, setHsl] = useState(DEFAULT_HSL)
-  const [hexDraft, setHexDraft] = useState<string | null>(null)
 
   const hex = hslToHex(hsl)
   const pureColour = `hsl(${hsl.h} ${hsl.s}% 50%)`
@@ -34,10 +34,9 @@ export function ColourPicker({ onChange }: ColourPickerProps) {
     backgroundColor: hex,
   }
 
-  const setNewColour = (next: Hsl) => {
-    setHsl(next)
-    setHexDraft(null)
-    onChange(hslToHex(next))
+  const setNewColour = (hsl: Hsl) => {
+    setHsl(hsl)
+    onChange(hslToHex(hsl))
   }
 
   const handleColourWheelPick = (event: PointerEvent<HTMLDivElement>) => {
@@ -50,15 +49,6 @@ export function ColourPicker({ onChange }: ColourPickerProps) {
     // Saturation gradient from the center
     const s = Math.min(Math.hypot(dx, dy) / radius, 1) * 100
     setNewColour({ ...hsl, h, s })
-  }
-
-  const handleHexInput = (input: string) => {
-    setHexDraft(input)
-    const next = hexToHsl(input)
-    if (next) {
-      setHsl(next)
-      onChange(hslToHex(next))
-    }
   }
 
   return (
@@ -98,29 +88,13 @@ export function ColourPicker({ onChange }: ColourPickerProps) {
       </Field>
 
       <Field label="Hex">
-        <span className={styles.hexRow}>
-          <input
-            className={styles.hexInput}
-            type="text"
-            value={hexDraft ?? hex}
-            maxLength={7}
-            spellCheck={false}
-            autoComplete="off"
-            aria-invalid={hexDraft !== null && !hexToHsl(hexDraft)}
-            onChange={(event) => handleHexInput(event.target.value)}
-            onBlur={() => setHexDraft(null)}
-          />
-          <input
-            type="color"
-            className={styles.swatch}
-            value={hex}
-            aria-label="Choose colour"
-            onChange={(event) => {
-              const next = hexToHsl(event.target.value)
-              if (next) setNewColour(next)
-            }}
-          />
-        </span>
+        <HexInput
+          value={hex}
+          onChange={(hex) => {
+            const hsl = hexToHsl(hex)
+            if (hsl) setNewColour(hsl)
+          }}
+        />
       </Field>
     </div>
   )

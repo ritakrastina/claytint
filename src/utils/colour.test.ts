@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { hexToHsl, hslToHex } from './colour'
+import { hexToHsl, hslToHex, normaliseHex } from './colour'
 
-// Fully saturated colours at 50% lightness, every 60° around the wheel.
+// Fully saturated colours at 50% lightness, every 60° around the wheel
 const WHEEL_COLOURS = [
   { h: 0, hex: '#ff0000' },
   { h: 60, hex: '#ffff00' },
@@ -86,5 +86,20 @@ describe('round trip', () => {
 
   it('returns lowercase hex', () => {
     expect(roundTrip('#C8603F')).toBe('#c8603f')
+  })
+})
+
+describe('normaliseHex', () => {
+  it.each([
+    ['#f00', '#ff0000'],
+    ['ff0000', '#ff0000'],
+    ['#C8603F', '#c8603f'],
+    ['  #abc  ', '#aabbcc'],
+  ])('normalises %j to %s', (input, expected) => {
+    expect(normaliseHex(input)).toBe(expected)
+  })
+
+  it.each(['', '#12', '#ggg', 'red'])('returns null for %j', (input) => {
+    expect(normaliseHex(input)).toBeNull()
   })
 })
