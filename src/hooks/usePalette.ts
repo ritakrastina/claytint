@@ -5,7 +5,7 @@ import type { Clay } from '../data/palettes'
 import { normaliseHex } from '../utils/colour'
 
 const PALETTE_KEY = 'palette'
-const CUSTOM_CLAYS_KEY = 'customClays'
+const CUSTOM_CLAYS_KEY = 'custom-clays'
 
 const load = (key: string): string | null => {
   try {
@@ -66,11 +66,12 @@ export function usePalette() {
 
   const addClay = (clay: Clay) => setCustomClays([...customClays, clay])
 
-  const updateClay = (index: number, clay: Clay) =>
-    setCustomClays(customClays.map((old, i) => (i === index ? clay : old)))
+  // Custom clays are identified by unique hex values
+  const updateClay = (hex: string, clay: Clay) =>
+    setCustomClays(customClays.map((old) => (old.hex === hex ? clay : old)))
 
-  const removeClay = (index: number) =>
-    setCustomClays(customClays.filter((_, i) => i !== index))
+  const removeClay = (hex: string) =>
+    setCustomClays(customClays.filter((clay) => clay.hex !== hex))
 
   // Fallback to the first palette
   const selected = PALETTES.find(({ id }) => id === selectedId) ?? PALETTES[0]

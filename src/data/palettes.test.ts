@@ -13,6 +13,7 @@ describe('PALETTES', () => {
       for (const { hex } of clays) expect(hex).toMatch(/^#[0-9a-f]{6}$/)
     })
 
+    // Hexes are unique identifiers
     it('has no duplicate hexes', () => {
       const hexes = clays.map(({ hex }) => hex)
       expect(new Set(hexes).size).toBe(hexes.length)
