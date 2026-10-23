@@ -41,7 +41,7 @@ export const GENERAL_PALETTES: Palette[] = [
 // Approximate representation of branded clay palettes
 export const BRAND_PALETTES: Palette[] = [
   {
-    id: 'fimo-professional',
+    id: 'fimo-professional-true-colours-6',
     name: 'FIMO professional - True Colours',
     info: "Approximate representation of FIMO professional True Colours clays, calibrated against STAEDTLER's mixing chart.",
     clays: [
