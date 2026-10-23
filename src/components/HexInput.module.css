@@ -6,6 +6,7 @@
 .hex-input {
   flex: 1;
   min-width: 100px;
+  min-height: var(--control-height);
   padding: 8px 12px;
   font-family: var(--mono);
   font-size: 1rem;
@@ -22,7 +23,7 @@
 .swatch {
   flex-shrink: 0;
   width: 80px;
-  height: auto;
+  min-height: var(--control-height);
   padding: 0;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
