@@ -4,6 +4,8 @@ export interface Hsl {
   l: number // lightness (0–100)
 }
 
+export const DEFAULT_COLOUR: Hsl = { h: 0, s: 0, l: 50 }
+
 export const hslToHex = ({ h, s, l }: Hsl): string => {
   const saturation = s / 100
   const lightness = l / 100

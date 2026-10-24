@@ -1,8 +1,6 @@
-import { useState } from 'react'
-import type { PointerEvent } from 'react'
+import { useState, type PointerEvent } from 'react'
 
-import { hexToHsl, hslToHex } from '../utils/colour'
-import type { Hsl } from '../utils/colour'
+import { DEFAULT_COLOUR, hexToHsl, hslToHex, type Hsl } from '../utils/colour'
 import styles from './ColourPicker.module.css'
 import { Field } from './Field'
 import { HexInput } from './HexInput'
@@ -11,10 +9,8 @@ interface ColourPickerProps {
   onChange: (hex: string) => void
 }
 
-const DEFAULT_HSL: Hsl = { h: 0, s: 0, l: 50 }
-
 export function ColourPicker({ onChange }: ColourPickerProps) {
-  const [hsl, setHsl] = useState(DEFAULT_HSL)
+  const [hsl, setHsl] = useState(DEFAULT_COLOUR)
 
   const hex = hslToHex(hsl)
   const pureColour = `hsl(${hsl.h} ${hsl.s}% 50%)`
