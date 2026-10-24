@@ -67,11 +67,11 @@ export function PaletteSelector() {
                 command="show-modal"
                 onClick={() => setClayDraft(clay)}
               >
-                <ClaySwatch clay={clay} />
+                <ClaySwatch hex={clay.hex} label={clay.name || clay.hex} />
               </button>
             ) : (
               <div className={styles.chip}>
-                <ClaySwatch clay={clay} />
+                <ClaySwatch hex={clay.hex} label={clay.name} />
               </div>
             )}
           </li>
