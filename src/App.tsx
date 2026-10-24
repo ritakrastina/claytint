@@ -4,6 +4,7 @@ import styles from './App.module.css'
 import { ColourPicker } from './components/ColourPicker'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
+import { PaletteSelector } from './components/PaletteSelector'
 import { Step } from './components/Step'
 
 export function App() {
@@ -16,7 +17,7 @@ export function App() {
       <main className={styles.main}>
         <div className={styles.steps}>
           <Step eyebrow="Step 1" title="My Clay">
-            Coming soon: pick the clays you own
+            <PaletteSelector />
           </Step>
           <Step eyebrow="Step 2" title="Pick a Colour">
             <ColourPicker onChange={setColour} />

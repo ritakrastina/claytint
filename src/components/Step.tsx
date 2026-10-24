@@ -1,5 +1,4 @@
-import { useId } from 'react'
-import type { ReactNode } from 'react'
+import { useId, type ReactNode } from 'react'
 
 import styles from './Step.module.css'
 
