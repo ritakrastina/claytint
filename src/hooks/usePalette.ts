@@ -1,8 +1,11 @@
 import { useState } from 'react'
 
-import { CUSTOM_PALETTE, PALETTES } from '../data/palettes'
-import type { Clay } from '../data/palettes'
-import { normaliseHex } from '../utils/colour'
+import {
+  CUSTOM_PALETTE,
+  PALETTES,
+  type Clay,
+  type ClayDraft,
+} from '../data/palettes'
 
 const PALETTE_KEY = 'palette'
 const CUSTOM_CLAYS_KEY = 'custom-clays'
@@ -31,16 +34,7 @@ const loadSelectedId = (): string | null => {
 const loadCustomClays = (): Clay[] => {
   try {
     const parsed: unknown = JSON.parse(load(CUSTOM_CLAYS_KEY) ?? '[]')
-    if (!Array.isArray(parsed)) return []
-    const seen = new Set<string>()
-    return parsed.flatMap((item) => {
-      const hex =
-        typeof item?.hex === 'string' ? normaliseHex(item.hex) : undefined
-      if (!hex || seen.has(hex)) return []
-      seen.add(hex)
-      const name = typeof item.name === 'string' ? item.name : hex
-      return [{ hex, name }]
-    })
+    return Array.isArray(parsed) ? parsed : []
   } catch {
     return []
   }
@@ -64,14 +58,15 @@ export function usePalette() {
     save(CUSTOM_CLAYS_KEY, JSON.stringify(clays))
   }
 
-  const addClay = (clay: Clay) => setCustomClays([...customClays, clay])
+  const saveClay = ({ id, ...clay }: ClayDraft) =>
+    setCustomClays(
+      id
+        ? customClays.map((old) => (old.id === id ? { id, ...clay } : old))
+        : [...customClays, { id: crypto.randomUUID(), ...clay }]
+    )
 
-  // Custom clays are identified by unique hex values
-  const updateClay = (hex: string, clay: Clay) =>
-    setCustomClays(customClays.map((old) => (old.hex === hex ? clay : old)))
-
-  const removeClay = (hex: string) =>
-    setCustomClays(customClays.filter((clay) => clay.hex !== hex))
+  const removeClay = (id: string) =>
+    setCustomClays(customClays.filter((clay) => clay.id !== id))
 
   // Fallback to the first palette
   const selected = PALETTES.find(({ id }) => id === selectedId) ?? PALETTES[0]
@@ -83,8 +78,7 @@ export function usePalette() {
   return {
     palette,
     selectPalette,
-    addClay,
-    updateClay,
+    saveClay,
     removeClay,
   }
 }
