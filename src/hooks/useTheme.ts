@@ -6,6 +6,10 @@ const KEY = 'theme'
 const darkQuery = '(prefers-color-scheme: dark)'
 const chrome: Record<Theme, string> = { light: '#efefec', dark: '#151615' }
 
+const parse = (value: string | undefined): Theme | undefined => {
+  return value === 'light' || value === 'dark' ? value : undefined
+}
+
 /**
  * Light/dark choice. Follows the OS until the user picks one, then remembers it.
  * index.html applies the saved choice before first paint, so this reads it back from <html>.
@@ -50,8 +54,4 @@ export function useTheme() {
     theme: theme ?? (systemDark ? 'dark' : 'light'),
     setTheme,
   }
-}
-
-function parse(value: string | undefined): Theme | undefined {
-  return value === 'light' || value === 'dark' ? value : undefined
 }
