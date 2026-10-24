@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { normaliseHex } from '../utils/colour'
+import { normaliseHex } from '../../utils/colour'
 import styles from './HexInput.module.css'
 
 interface HexInputProps {

@@ -9,9 +9,9 @@ import {
 import { usePalette } from '../hooks/usePalette'
 import { DEFAULT_COLOUR, hslToHex } from '../utils/colour'
 import { ClayDialog } from './ClayDialog'
-import { ClaySwatch } from './ClaySwatch'
-import { Field } from './Field'
 import styles from './PaletteSelector.module.css'
+import { ClaySwatch } from './ui/ClaySwatch'
+import { Field } from './ui/Field'
 
 export function PaletteSelector() {
   const { palette, selectPalette, saveClay, removeClay } = usePalette()

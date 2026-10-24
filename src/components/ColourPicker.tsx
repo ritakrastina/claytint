@@ -2,8 +2,8 @@ import { useState, type PointerEvent } from 'react'
 
 import { DEFAULT_COLOUR, hexToHsl, hslToHex, type Hsl } from '../utils/colour'
 import styles from './ColourPicker.module.css'
-import { Field } from './Field'
-import { HexInput } from './HexInput'
+import { Field } from './ui/Field'
+import { HexInput } from './ui/HexInput'
 
 interface ColourPickerProps {
   onChange: (hex: string) => void

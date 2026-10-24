@@ -1,4 +1,4 @@
-import type { Clay } from '../data/palettes'
+import type { Clay } from '../../data/palettes'
 import styles from './ClaySwatch.module.css'
 
 interface ClaySwatchProps {

@@ -2,8 +2,8 @@ import { useState } from 'react'
 
 import type { Clay, ClayDraft } from '../data/palettes'
 import styles from './ClayDialog.module.css'
-import { Field } from './Field'
-import { HexInput } from './HexInput'
+import { Field } from './ui/Field'
+import { HexInput } from './ui/HexInput'
 
 interface ClayDialogProps {
   id: string

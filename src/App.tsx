@@ -5,7 +5,7 @@ import { ColourPicker } from './components/ColourPicker'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
 import { PaletteSelector } from './components/PaletteSelector'
-import { Step } from './components/Step'
+import { Step } from './components/ui/Step'
 
 export function App() {
   const [colour, setColour] = useState<string>()
