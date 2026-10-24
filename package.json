@@ -15,7 +15,8 @@
   "dependencies": {
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "spectral.js": "^3.0.0"
+    "spectral.js": "^3.0.0",
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -1,16 +1,14 @@
-import { useState, type PointerEvent } from 'react'
+import type { PointerEvent } from 'react'
 
-import { DEFAULT_COLOUR, hexToHsl, hslToHex, type Hsl } from '../utils/colour'
+import { useStore } from '../store'
+import { hexToHsl, hslToHex } from '../utils/colour'
 import styles from './ColourPicker.module.css'
 import { Field } from './ui/Field'
 import { HexInput } from './ui/HexInput'
 
-interface ColourPickerProps {
-  onChange: (hex: string) => void
-}
-
-export function ColourPicker({ onChange }: ColourPickerProps) {
-  const [hsl, setHsl] = useState(DEFAULT_COLOUR)
+export function ColourPicker() {
+  const hsl = useStore((state) => state.colour)
+  const setColour = useStore((state) => state.setColour)
 
   const hex = hslToHex(hsl)
   const pureColour = `hsl(${hsl.h} ${hsl.s}% 50%)`
@@ -30,11 +28,6 @@ export function ColourPicker({ onChange }: ColourPickerProps) {
     backgroundColor: hex,
   }
 
-  const setNewColour = (hsl: Hsl) => {
-    setHsl(hsl)
-    onChange(hslToHex(hsl))
-  }
-
   const handleColourWheelPick = (event: PointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect()
     const radius = rect.width / 2
@@ -44,7 +37,7 @@ export function ColourPicker({ onChange }: ColourPickerProps) {
     const h = ((Math.atan2(dx, -dy) * 180) / Math.PI + 360) % 360
     // Saturation gradient from the center
     const s = Math.min(Math.hypot(dx, dy) / radius, 1) * 100
-    setNewColour({ ...hsl, h, s })
+    setColour({ ...hsl, h, s })
   }
 
   return (
@@ -75,7 +68,7 @@ export function ColourPicker({ onChange }: ColourPickerProps) {
           value={hsl.l}
           aria-valuetext={lightnessLabel}
           onChange={(event) =>
-            setNewColour({ ...hsl, l: Number(event.target.value) })
+            setColour({ ...hsl, l: Number(event.target.value) })
           }
           style={{
             background: `linear-gradient(to right, black, ${pureColour}, white)`,
@@ -88,7 +81,7 @@ export function ColourPicker({ onChange }: ColourPickerProps) {
           value={hex}
           onChange={(hex) => {
             const hsl = hexToHsl(hex)
-            if (hsl) setNewColour(hsl)
+            if (hsl) setColour(hsl)
           }}
         />
       </Field>

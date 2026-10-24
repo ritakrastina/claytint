@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
-import type { Clay, ClayDraft } from '../data/palettes'
+import type { ClayDraft } from '../data/palettes'
+import { useStore } from '../store'
 import styles from './ClayDialog.module.css'
 import { Field } from './ui/Field'
 import { HexInput } from './ui/HexInput'
@@ -8,13 +9,10 @@ import { HexInput } from './ui/HexInput'
 interface ClayDialogProps {
   id: string
   draft?: ClayDraft
-  clays: Clay[]
-  onSave: (draft: ClayDraft) => void
-  onRemove: (id: string) => void
   onClose: () => void
 }
 
-export function ClayDialog({ id, draft, onClose, ...rest }: ClayDialogProps) {
+export function ClayDialog({ id, draft, onClose }: ClayDialogProps) {
   return (
     <dialog
       id={id}
@@ -23,25 +21,15 @@ export function ClayDialog({ id, draft, onClose, ...rest }: ClayDialogProps) {
       aria-labelledby={`${id}-title`}
       onClose={onClose}
     >
-      {draft && <ClayDialogContent id={id} draft={draft} {...rest} />}
+      {draft && <ClayDialogContent id={id} draft={draft} />}
     </dialog>
   )
 }
 
-interface ClayDialogContentProps extends Omit<
-  ClayDialogProps,
-  'draft' | 'onClose'
-> {
-  draft: ClayDraft
-}
-
-function ClayDialogContent({
-  id,
-  draft,
-  clays,
-  onSave,
-  onRemove,
-}: ClayDialogContentProps) {
+function ClayDialogContent({ id, draft }: { id: string; draft: ClayDraft }) {
+  const clays = useStore((state) => state.customClays)
+  const saveClay = useStore((state) => state.saveClay)
+  const removeClay = useStore((state) => state.removeClay)
   const [hex, setHex] = useState(draft.hex)
   const [name, setName] = useState(draft.name)
 
@@ -70,7 +58,7 @@ function ClayDialogContent({
         id={`${id}-form`}
         method="dialog"
         className={styles.form}
-        onSubmit={() => onSave({ ...draft, hex, name: name.trim() })}
+        onSubmit={() => saveClay({ ...draft, hex, name: name.trim() })}
       >
         <Field label="Colour">
           <HexInput value={hex} onChange={setHex} />
@@ -100,7 +88,7 @@ function ClayDialogContent({
             className={styles.remove}
             commandfor={id}
             command="close"
-            onClick={() => draft.id && onRemove(draft.id)}
+            onClick={() => draft.id && removeClay(draft.id)}
           >
             Remove
           </button>

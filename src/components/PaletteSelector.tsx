@@ -4,9 +4,10 @@ import {
   BRAND_PALETTES,
   CUSTOM_PALETTE,
   GENERAL_PALETTES,
+  PALETTES,
   type ClayDraft,
 } from '../data/palettes'
-import { usePalette } from '../hooks/usePalette'
+import { useStore } from '../store'
 import { DEFAULT_COLOUR, hslToHex } from '../utils/colour'
 import { ClayDialog } from './ClayDialog'
 import styles from './PaletteSelector.module.css'
@@ -14,10 +15,15 @@ import { ClaySwatch } from './ui/ClaySwatch'
 import { Field } from './ui/Field'
 
 export function PaletteSelector() {
-  const { palette, selectPalette, saveClay, removeClay } = usePalette()
+  const paletteId = useStore((state) => state.paletteId)
+  const customClays = useStore((state) => state.customClays)
+  const selectPalette = useStore((state) => state.selectPalette)
   const [clayDraft, setClayDraft] = useState<ClayDraft>()
 
-  const isCustom = palette.id === CUSTOM_PALETTE.id
+  const isCustom = paletteId === CUSTOM_PALETTE.id
+  const selectedPalette = isCustom
+    ? { ...CUSTOM_PALETTE, clays: customClays }
+    : (PALETTES.find(({ id }) => id === paletteId) ?? PALETTES[0])
 
   return (
     <div className={styles.paletteSelector}>
@@ -26,7 +32,7 @@ export function PaletteSelector() {
           <select
             className={styles.select}
             aria-describedby="palette-info"
-            value={palette.id}
+            value={selectedPalette.id}
             onChange={(event) => selectPalette(event.target.value)}
           >
             <optgroup label="General">
@@ -51,12 +57,15 @@ export function PaletteSelector() {
 
         <p id="palette-info" className={styles.info}>
           <InfoIcon />
-          {palette.info}
+          {selectedPalette.info}
         </p>
       </div>
 
-      <ul className={styles.swatches} aria-label={`${palette.name} swatches`}>
-        {palette.clays.map((clay) => (
+      <ul
+        className={styles.swatches}
+        aria-label={`${selectedPalette.name} swatches`}
+      >
+        {selectedPalette.clays.map((clay) => (
           <li key={clay.id}>
             {isCustom ? (
               <button
@@ -99,9 +108,6 @@ export function PaletteSelector() {
         <ClayDialog
           id="clay-dialog"
           draft={clayDraft}
-          clays={palette.clays}
-          onSave={saveClay}
-          onRemove={removeClay}
           onClose={() => setClayDraft(undefined)}
         />
       )}
