@@ -1,0 +1,77 @@
+.palette-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.select {
+  height: var(--control-height);
+  padding: 8px 12px;
+  color: var(--text);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.info {
+  display: flex;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--muted);
+
+  svg {
+    flex-shrink: 0;
+    /* (1.5 * 0.875rem) = line height; 16px = icon height */
+    margin-top: calc(((1.5 * 0.875rem) - 16px) / 2);
+  }
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip,
+.chip-button,
+.chip-button-add {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 8px;
+  font-size: 0.875rem;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.chip-button {
+  background: none;
+
+  &:hover {
+    border-color: var(--accent);
+  }
+}
+
+.chip-button-add {
+  background: none;
+  color: var(--muted);
+  border-style: dashed;
+
+  svg {
+    flex-shrink: 0;
+    margin: 2px;
+  }
+
+  &:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+}
