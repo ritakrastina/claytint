@@ -1,5 +1,5 @@
 .dialog {
-  width: min(360px, calc(100vw - 32px));
+  width: min(400px, calc(100vw - 32px));
   margin: auto;
   color: var(--text);
   background: var(--surface);
