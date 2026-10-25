@@ -18,7 +18,7 @@ export function ClayDialog({ id, draft, onClose }: ClayDialogProps) {
     <dialog
       id={id}
       className={styles.dialog}
-      closedby="any"
+      closedby="closerequest"
       aria-labelledby={`${id}-title`}
       onClose={onClose}
     >
