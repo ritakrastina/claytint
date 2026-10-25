@@ -27,9 +27,9 @@ export function App() {
             Coming soon: a mixing recipe for {colour}
           </Step>
         </div>
-
-        <About />
       </main>
+
+      <About />
 
       <Footer />
     </div>

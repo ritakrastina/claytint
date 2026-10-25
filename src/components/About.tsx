@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 import styles from './About.module.css'
 import {
@@ -9,22 +9,22 @@ import {
   TagIcon,
 } from './ui/icons'
 
-type Note = {
+type Item = {
   icon: ReactNode
   title: string
   text: string
 }
 
-const NOTES: Note[] = [
-  {
-    icon: <FlaskIcon width={20} height={20} />,
-    title: 'Guides, not formulas',
-    text: 'Recipes are a starting point. Clay type, exact colour and accurate measurements all affect the result. Mix a small test chip first.',
-  },
+const ITEMS: Item[] = [
   {
     icon: <ScreenIcon width={20} height={20} />,
     title: 'Screens vary',
     text: 'Display calibration, brightness, Night Shift or True Tone and even room lighting all change how a colour looks.',
+  },
+  {
+    icon: <FlaskIcon width={20} height={20} />,
+    title: 'Guides, not formulas',
+    text: 'Recipes are a starting point. Clay type, exact colour and accurate measurements all affect the result. Mix a small test chip first.',
   },
   {
     icon: <FlameIcon width={20} height={20} />,
@@ -44,25 +44,19 @@ const NOTES: Note[] = [
 ]
 
 export function About() {
-  const titleId = useId()
-
   return (
-    <section aria-labelledby={titleId}>
-      <h2 id={titleId} className={styles.title}>
-        Good to know
-      </h2>
-
-      <ul className={styles.notes}>
-        {NOTES.map((note) => (
-          <li key={note.title} className={styles.note}>
-            <h3 className={styles.noteTitle}>
-              {note.icon}
-              {note.title}
-            </h3>
-            <p className={styles.noteText}>{note.text}</p>
+    <aside className={styles.about}>
+      <ul className={styles.list}>
+        {ITEMS.map((item) => (
+          <li key={item.title}>
+            <strong className={styles.itemTitle}>
+              {item.icon}
+              {item.title}
+            </strong>
+            <p className={styles.itemText}>{item.text}</p>
           </li>
         ))}
       </ul>
-    </section>
+    </aside>
   )
 }
