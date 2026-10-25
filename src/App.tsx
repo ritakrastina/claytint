@@ -1,4 +1,5 @@
 import styles from './App.module.css'
+import { About } from './components/About'
 import { ColourPicker } from './components/ColourPicker'
 import { Footer } from './components/Footer'
 import { Header } from './components/Header'
@@ -26,6 +27,8 @@ export function App() {
             Coming soon: a mixing recipe for {colour}
           </Step>
         </div>
+
+        <About />
       </main>
 
       <Footer />
