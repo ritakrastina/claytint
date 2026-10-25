@@ -1,4 +1,4 @@
-export interface Hsl {
+export type Hsl = {
   h: number // hue (0–360)
   s: number // saturation (0–100)
   l: number // lightness (0–100)
