@@ -2,8 +2,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
-export default defineConfig(({ command, isPreview }) => ({
-  base: command === 'build' || isPreview ? '/claytint/' : '/',
+export default defineConfig({
   server: {
     port: 3000,
     strictPort: true,
@@ -22,7 +21,7 @@ export default defineConfig(({ command, isPreview }) => ({
         'apple-touch-icon-180x180.png',
       ],
       manifest: {
-        id: '/claytint/',
+        id: '/',
         name: 'ClayTint',
         short_name: 'ClayTint',
         description: 'Polymer clay colour mixing guide',
@@ -48,4 +47,4 @@ export default defineConfig(({ command, isPreview }) => ({
   css: {
     modules: { localsConvention: 'camelCaseOnly' },
   },
-}))
+})
