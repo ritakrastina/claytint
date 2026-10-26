@@ -148,3 +148,30 @@ ul {
 html:has(dialog:modal) {
   overflow: hidden;
 }
+
+/* Printing elements marked with data-print-area, always on light paper */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  [data-print-area],
+  [data-print-area] * {
+    visibility: visible;
+  }
+
+  [data-print-area] {
+    position: absolute;
+    inset: 0 0 auto;
+    color-scheme: light;
+    /* Light tokens, even in dark mode */
+    --text: #1f221f;
+    --muted: #686c66;
+    --border: #e0e1dc;
+    --surface: #ffffff;
+    --surface-2: #ffffff;
+    --approx: #a36a00;
+    --rough: #b3361f;
+    color: var(--text);
+  }
+}
