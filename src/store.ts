@@ -8,14 +8,16 @@ interface State {
   paletteId: string
   customClays: Clay[]
   colour: Hsl
+  weight: number
   selectPalette: (id: string) => void
   saveClay: (draft: ClayDraft) => void
   removeClay: (id: string) => void
   setColour: (colour: Hsl) => void
+  setWeight: (weight: number) => void
 }
 
 /**
- * App state saved in localStorage: selected palette, custom clays and picked colour
+ * App state saved in localStorage: selected palette, custom clays, picked colour and target weight
  */
 export const useStore = create<State>()(
   persist(
@@ -23,6 +25,7 @@ export const useStore = create<State>()(
       paletteId: PALETTES[0].id,
       customClays: [],
       colour: DEFAULT_COLOUR,
+      weight: 25,
 
       selectPalette: (paletteId) => set({ paletteId }),
 
@@ -39,6 +42,8 @@ export const useStore = create<State>()(
         })),
 
       setColour: (colour) => set({ colour }),
+
+      setWeight: (weight) => set({ weight }),
     }),
     {
       name: 'claytint',
