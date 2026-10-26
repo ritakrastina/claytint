@@ -4,7 +4,7 @@ import {
   BRAND_PALETTES,
   CUSTOM_PALETTE,
   GENERAL_PALETTES,
-  PALETTES,
+  resolvePalette,
   type ClayDraft,
 } from '../data/palettes'
 import { useStore } from '../store'
@@ -21,10 +21,8 @@ export function PaletteSelector() {
   const selectPalette = useStore((state) => state.selectPalette)
   const [clayDraft, setClayDraft] = useState<ClayDraft>()
 
-  const isCustom = paletteId === CUSTOM_PALETTE.id
-  const selectedPalette = isCustom
-    ? { ...CUSTOM_PALETTE, clays: customClays }
-    : (PALETTES.find(({ id }) => id === paletteId) ?? PALETTES[0])
+  const selectedPalette = resolvePalette(paletteId, customClays)
+  const isCustom = selectedPalette.id === CUSTOM_PALETTE.id
 
   return (
     <div className={styles.paletteSelector}>

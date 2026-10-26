@@ -87,3 +87,11 @@ export const PALETTES: Palette[] = [
   ...BRAND_PALETTES,
   CUSTOM_PALETTE,
 ]
+
+export const resolvePalette = (
+  paletteId: string,
+  customClays: Clay[]
+): Palette =>
+  paletteId === CUSTOM_PALETTE.id
+    ? { ...CUSTOM_PALETTE, clays: customClays }
+    : (PALETTES.find(({ id }) => id === paletteId) ?? PALETTES[0])
