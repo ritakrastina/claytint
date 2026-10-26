@@ -127,6 +127,14 @@ select {
   cursor: pointer;
 }
 
+select {
+  appearance: base-select;
+}
+
+select::picker-icon {
+  color: var(--muted);
+}
+
 ul {
   list-style: none;
 }
