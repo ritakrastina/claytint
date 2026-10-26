@@ -42,7 +42,7 @@ const COLUMNS: { label: string; parts: Parts; main: number }[] = [
   { label: '20 W + 1', parts: { W: 20 }, main: 1 },
   { label: '4 W + 1', parts: { W: 4 }, main: 1 },
   { label: '1 W + 1', parts: { W: 1 }, main: 1 },
-  { label: '1', parts: {}, main: 1 }, // main colour
+  { label: '', parts: {}, main: 1 }, // main colour
   { label: '1 K + 80', parts: { K: 1 }, main: 80 },
   { label: '1 K + 20', parts: { K: 1 }, main: 20 },
   { label: '1 K + 5', parts: { K: 1 }, main: 5 },
