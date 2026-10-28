@@ -9,7 +9,7 @@
   overscroll-behavior: contain;
 
   &::backdrop {
-    background: rgb(0 0 0 / 40%);
+    background: rgb(0 0 0 / 60%);
   }
 }
 
