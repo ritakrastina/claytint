@@ -5,6 +5,7 @@ import {
   FlameIcon,
   FlaskIcon,
   HeartIcon,
+  PaletteIcon,
   ScreenIcon,
   TagIcon,
 } from './ui/icons'
@@ -20,6 +21,11 @@ const ITEMS: Item[] = [
     icon: <ScreenIcon width={20} height={20} />,
     title: 'Screens vary',
     text: 'Display calibration, brightness, Night Shift or True Tone and even room lighting all change how a colour looks.',
+  },
+  {
+    icon: <PaletteIcon width={20} height={20} />,
+    title: 'How mixing works',
+    text: 'Mixes are predicted with spectral.js using Kubelka-Munk pigment theory. The closest match with fewer clays wins.',
   },
   {
     icon: <FlaskIcon width={20} height={20} />,
