@@ -2,6 +2,7 @@ export type Clay = {
   id: string
   name: string
   hex: string
+  strength?: number
 }
 
 export type ClayDraft = Omit<Clay, 'id'> & { id?: string }
@@ -41,20 +42,35 @@ export const GENERAL_PALETTES: Palette[] = [
   },
 ]
 
+export const FIMO_WHITE: Clay = {
+  id: 'W',
+  hex: '#fcfcfc',
+  name: 'White',
+  strength: 1,
+}
+
+export const FIMO_BLACK: Clay = {
+  id: 'K',
+  hex: '#29292d',
+  name: 'Black',
+  strength: 5.77,
+}
+
 // Approximate representation of branded clay palettes
 export const BRAND_PALETTES: Palette[] = [
   {
     id: 'fimo-professional-tc',
     name: 'FIMO professional - True Colours',
     info: "Approximate representation of FIMO professional True Colours clays, calibrated against STAEDTLER's mixing chart.",
+    // Hexes and strengths are fitted to STAEDTLER's mixing chart by scripts/calibrate-fimo.ts
     clays: [
-      { id: 'Y', hex: '#ffdc00', name: 'True yellow' },
-      { id: 'R', hex: '#e10017', name: 'True red' },
-      { id: 'M', hex: '#b5177a', name: 'True magenta' },
-      { id: 'B', hex: '#0070b4', name: 'True blue' },
-      { id: 'G', hex: '#009777', name: 'True green' },
-      { id: 'W', hex: '#fcfcfc', name: 'White' },
-      { id: 'K', hex: '#29292d', name: 'Black' },
+      { id: 'Y', hex: '#ebcd00', name: 'True yellow', strength: 1.14 },
+      { id: 'R', hex: '#d22a3a', name: 'True red', strength: 1.81 },
+      { id: 'M', hex: '#b92873', name: 'True magenta', strength: 1.65 },
+      { id: 'B', hex: '#006cc2', name: 'True blue', strength: 1.35 },
+      { id: 'G', hex: '#11715c', name: 'True green', strength: 1.76 },
+      FIMO_WHITE,
+      FIMO_BLACK,
     ],
   },
 ]
@@ -71,3 +87,11 @@ export const PALETTES: Palette[] = [
   ...BRAND_PALETTES,
   CUSTOM_PALETTE,
 ]
+
+export const resolvePalette = (
+  paletteId: string,
+  customClays: Clay[]
+): Palette =>
+  paletteId === CUSTOM_PALETTE.id
+    ? { ...CUSTOM_PALETTE, clays: customClays }
+    : (PALETTES.find(({ id }) => id === paletteId) ?? PALETTES[0])

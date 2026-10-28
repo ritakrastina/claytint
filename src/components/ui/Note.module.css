@@ -1,0 +1,23 @@
+.note {
+  display: flex;
+  gap: 4px;
+  font-size: 0.875rem;
+
+  svg {
+    flex-shrink: 0;
+    /* (1.5 * 0.875rem) = line height; 16px = icon height */
+    margin-top: calc(((1.5 * 0.875rem) - 16px) / 2);
+  }
+}
+
+.info {
+  color: var(--muted);
+}
+
+.warning {
+  color: var(--approx);
+}
+
+.error {
+  color: var(--rough);
+}
