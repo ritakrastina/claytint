@@ -37,6 +37,8 @@ const ROUNDING_TOLERANCE = 0.01
 // Most multiples of the smallest clay tried before settling for the closest rounding
 const MAX_SMALLEST_PARTS = 20
 
+// Clay colours only: each is reused in thousands of mixes during a search, while
+// target and mix colours are one-offs that would fill the cache
 const colourCache = new Map<string, Color>()
 
 const toColour = (hex: string, strength = 1): Color => {
@@ -248,7 +250,7 @@ const optimise = (
 // The last one is the closest colour these clays can make.
 export const findRecipes = (targetHex: string, clays: Clay[]): Recipe[] => {
   if (clays.length === 0) return []
-  const target = toColour(targetHex)
+  const target = new Color(targetHex)
 
   const candidates = [
     ...clays.map((clay) => optimise(target, [clay])),
@@ -313,8 +315,8 @@ export const pickBest = (recipes: Recipe[]): Recipe | null => {
 // The recipe in whole parts. The smallest clay is at least 1 part.
 // Rounding to whole parts could change the mix colour.
 export const roundToParts = (targetHex: string, recipe: Recipe): Recipe => {
-  const target = toColour(targetHex)
-  const exactColour = toColour(recipe.hex)
+  const target = new Color(targetHex)
+  const exactColour = new Color(recipe.hex)
   const smallest = recipe.ingredients[recipe.ingredients.length - 1].fraction
 
   // Bounded so a mix that never gets within tolerance (or a NaN) can't hang the
@@ -352,17 +354,17 @@ export const findBestRecipe = (
   return exact && { exact, rounded: roundToParts(targetHex, exact) }
 }
 
-export const matchQuality = (deltaE: number): MatchQuality => {
-  if (deltaE < 0.02) return 'excellent'
-  if (deltaE < 0.05) return 'close'
-  if (deltaE < 0.1) return 'approximate'
+export const matchQuality = (distance: number): MatchQuality => {
+  if (distance < 0.02) return 'excellent'
+  if (distance < 0.05) return 'close'
+  if (distance < 0.1) return 'approximate'
   return 'rough'
 }
 
 // Main way the mix differs from the target: lightness, chroma or hue
 export const explainGap = (targetHex: string, mixHex: string): GapReason => {
-  const target = toColour(targetHex)
-  const mixed = toColour(mixHex)
+  const target = new Color(targetHex)
+  const mixed = new Color(mixHex)
   const [targetL, targetC] = target.OKLCh
   const [mixL, mixC] = mixed.OKLCh
 

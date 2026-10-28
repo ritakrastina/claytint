@@ -26,7 +26,7 @@ const swatches = FIMO_CHART.map(({ recipe, parts, hex }) => {
   const total = Object.values(parts).reduce((sum, amount) => sum + amount, 0)
   return {
     recipe,
-    parts: Object.entries(parts).map(([id, amount]) => ({
+    ingredients: Object.entries(parts).map(([id, amount]) => ({
       clay: clayById(id),
       fraction: amount / total,
     })),
@@ -36,7 +36,9 @@ const swatches = FIMO_CHART.map(({ recipe, parts, hex }) => {
 
 // How far each predicted mix is from its printed swatch (0 = identical)
 const errors = () =>
-  swatches.map(({ parts, printed }) => deltaE(mixClays(parts), printed))
+  swatches.map(({ ingredients, printed }) =>
+    deltaE(mixClays(ingredients), printed)
+  )
 
 // One number to make as small as possible: the average error
 const score = () => {

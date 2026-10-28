@@ -39,6 +39,7 @@ export function MixingGuide() {
   const [weightDraft, setWeightDraft] = useState<string | null>(null)
 
   const { name, clays } = resolvePalette(paletteId, customClays)
+  // Deferred so the colour picker stays responsive while the recipe is found
   const targetHex = useDeferredValue(hslToHex(colour))
   const bestRecipe = useMemo(
     () => findBestRecipe(targetHex, clays),
@@ -47,7 +48,6 @@ export function MixingGuide() {
 
   // Rounding to whole parts may shift the colour, so show the rounded recipe
   const recipe = unit === 'parts' ? bestRecipe?.rounded : bestRecipe?.exact
-  const colourGapInfo = recipe && GAP_INFO[explainGap(targetHex, recipe.hex)]
 
   const getAmount = ({ fraction, parts }: Ingredient) =>
     unit === 'parts'
@@ -174,10 +174,14 @@ export function MixingGuide() {
 
           <footer className={styles.notes}>
             {recipe.quality === 'rough' && (
-              <ErrorNote>{colourGapInfo}</ErrorNote>
+              <ErrorNote>
+                {GAP_INFO[explainGap(targetHex, recipe.hex)]}
+              </ErrorNote>
             )}
             {recipe.quality === 'approximate' && (
-              <WarningNote>{colourGapInfo}</WarningNote>
+              <WarningNote>
+                {GAP_INFO[explainGap(targetHex, recipe.hex)]}
+              </WarningNote>
             )}
             <InfoNote>
               Display colours are approximate. Mix a small test batch first.
