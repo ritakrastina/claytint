@@ -10,10 +10,8 @@ const parse = (value: string | undefined): Theme | undefined => {
   return value === 'light' || value === 'dark' ? value : undefined
 }
 
-/**
- * Light/dark choice. Follows the OS until the user picks one, then remembers it.
- * index.html applies the saved choice before first paint, so this reads it back from <html>.
- */
+// Light/dark choice. Follows the OS until the user picks one, then remembers it.
+// index.html applies the saved choice before first paint, so this reads it back from <html>.
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme | undefined>(() =>
     parse(document.documentElement.dataset.theme)
