@@ -154,6 +154,11 @@ html:has(dialog:modal) {
 
 /* Printing elements marked with data-print-area */
 @media print {
+  :root,
+  body {
+    background: none;
+  }
+
   body * {
     visibility: hidden;
   }
