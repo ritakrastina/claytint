@@ -155,6 +155,10 @@ html:has(dialog:modal) {
     visibility: hidden;
   }
 
+  body :not([data-print-area], [data-print-area] *, :has([data-print-area])) {
+    display: none;
+  }
+
   [data-print-area],
   [data-print-area] * {
     visibility: visible;
