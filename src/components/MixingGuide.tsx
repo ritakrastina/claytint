@@ -60,10 +60,10 @@ export function MixingGuide() {
       : `${weight.toFixed(2)} g`
 
   return (
-    <div className={styles.mixingGuide}>
+    <div className={styles.mixingGuide} data-print-area>
       {recipe ? (
         <>
-          <div className={styles.recipe} data-print-area>
+          <div className={styles.recipe}>
             <header className={styles.printHeader}>
               <p className={styles.printTitle}>
                 ClayTint - colour mixing guide
