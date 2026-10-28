@@ -42,7 +42,7 @@ function ClayDialogContent({ id, draft }: { id: string; draft: ClayDraft }) {
     <>
       <header className={styles.header}>
         <h3 id={`${id}-title`} className={styles.title}>
-          {draft.id ? 'Edit clay' : 'Add clay'}
+          {draft.id ? 'Edit Clay' : 'Add Clay'}
         </h3>
         <button
           type="button"
@@ -77,7 +77,7 @@ function ClayDialogContent({ id, draft }: { id: string; draft: ClayDraft }) {
 
         {isDuplicate && (
           <p className={styles.error} role="alert">
-            This colour is already added to your palette.
+            This colour is already in your palette.
           </p>
         )}
       </form>

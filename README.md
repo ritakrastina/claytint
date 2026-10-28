@@ -1,8 +1,8 @@
 # ClayTint
 
-Polymer clay colour mixing guide, published on [claytint.com](https://claytint.com/).
+Polymer clay colour recipes, published on [claytint.com](https://claytint.com/).
 
-Choose the clays you own (a brand palette or your own custom colours), pick a target colour, and get a mixing guide to match it.
+Choose the clays you own (a brand palette or your own custom colours), pick a target colour, and get a recipe to match it.
 
 ## Features & Technologies
 

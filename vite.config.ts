@@ -24,7 +24,7 @@ export default defineConfig({
         id: '/',
         name: 'ClayTint',
         short_name: 'ClayTint',
-        description: 'Polymer clay colour mixing guide',
+        description: 'Polymer clay colour recipes',
         theme_color: '#efefec',
         background_color: '#efefec',
         display: 'standalone',

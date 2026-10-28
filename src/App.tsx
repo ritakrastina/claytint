@@ -14,7 +14,7 @@ export function App() {
 
       <main className={styles.main}>
         <div className={styles.steps}>
-          <Step eyebrow="Step 1" title="My Clay">
+          <Step eyebrow="Step 1" title="Choose Your Clay">
             <PaletteSelector />
           </Step>
 
@@ -22,7 +22,7 @@ export function App() {
             <ColourPicker />
           </Step>
 
-          <Step eyebrow="Step 3" title="Mixing Guide">
+          <Step eyebrow="Step 3" title="Get Your Recipe">
             <MixingGuide />
           </Step>
         </div>

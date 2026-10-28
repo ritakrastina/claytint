@@ -20,32 +20,32 @@ const ITEMS: Item[] = [
   {
     icon: <ScreenIcon width={20} height={20} />,
     title: 'Screens vary',
-    text: 'Display calibration, brightness, Night Shift or True Tone and even room lighting all change how a colour looks.',
+    text: 'Calibration, brightness, Night Shift, True Tone and even room lighting change how colours look.',
   },
   {
     icon: <PaletteIcon width={20} height={20} />,
     title: 'How mixing works',
-    text: 'Mixes are predicted with spectral.js using Kubelka-Munk pigment theory. The closest match with fewer clays wins.',
+    text: 'Recipes are predicted with spectral.js using Kubelka-Munk pigment theory. The closest match with the fewest clays wins.',
   },
   {
     icon: <FlaskIcon width={20} height={20} />,
     title: 'Guides, not formulas',
-    text: 'Recipes are a starting point. Clay type, exact colour and accurate measurements all affect the result. Mix a small test chip first.',
+    text: 'Recipes are a starting point. Clay brand, batch and how precisely you measure all affect the result. Always mix a test chip first.',
   },
   {
     icon: <FlameIcon width={20} height={20} />,
     title: 'Baking shifts colour',
-    text: "Clay colours can change with oven temperature and baking time. Follow the manufacturer's baking instructions.",
+    text: "Oven temperature and baking time can shift colours. Follow the manufacturer's baking instructions.",
   },
   {
     icon: <HeartIcon width={20} height={20} />,
     title: 'Free hobby project',
-    text: 'Made for my own clay work and shared in case it helps. No ads, accounts or tracking. Your palette is saved only in this browser. Provided as-is.',
+    text: 'Made for my own clay work and shared in case it helps. No ads, accounts or tracking. Your clays and settings stay only in this browser. Provided as-is.',
   },
   {
     icon: <TagIcon width={20} height={20} />,
     title: 'Not affiliated',
-    text: 'ClayTint is independent and not affiliated with or endorsed by STAEDTLER. FIMO is their trademark. Brand colours here are my own best-guess approximations.',
+    text: 'ClayTint is independent and not affiliated with or endorsed by STAEDTLER. FIMO is their trademark. Brand colours are my best-guess approximations.',
   },
 ]
 

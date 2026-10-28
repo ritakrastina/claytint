@@ -16,12 +16,12 @@ import { ErrorNote, InfoNote, WarningNote } from './ui/Note'
 
 const GAP_INFO: Record<GapReason, string> = {
   'too-vivid':
-    'Target colour is more vivid than these clays can mix, so the mix is a duller version of it.',
+    'Target is more vivid than these clays can reach, so this is the closest duller mix.',
   'too-muted':
-    'Target colour is greyer than these clays can mix, so the mix is a more saturated version of it.',
-  'too-light': 'Target colour is lighter than these clays can mix.',
-  'too-dark': 'Target colour is darker than these clays can mix.',
-  hue: "This shade is out of these clays' reach, so the mix leans towards a neighbouring hue.",
+    'Target is greyer than these clays can reach, so this is the closest brighter mix.',
+  'too-light': 'Target is lighter than these clays can reach.',
+  'too-dark': 'Target is darker than these clays can reach.',
+  hue: "Target is out of these clays' reach, so the mix leans to a nearby hue.",
 }
 
 const formatParts = (parts: number) =>
@@ -66,7 +66,7 @@ export function MixingGuide() {
           <div className={styles.recipe}>
             <header className={styles.printHeader}>
               <p className={styles.printTitle}>
-                ClayTint - colour mixing guide
+                ClayTint - polymer clay colour recipe
               </p>
               <p>Palette: {name}</p>
             </header>
@@ -127,7 +127,7 @@ export function MixingGuide() {
                     inputMode="decimal"
                     min={1}
                     step={1}
-                    aria-label="Target weight"
+                    aria-label="Total weight"
                     value={weightDraft ?? weight}
                     aria-invalid={
                       weightDraft !== null && !(Number(weightDraft) > 0)
@@ -184,16 +184,14 @@ export function MixingGuide() {
               </WarningNote>
             )}
             <InfoNote>
-              Display colours are approximate. Mix a small test batch first.
+              Real clay may look different, so mix a small test chip first.
             </InfoNote>
           </footer>
         </>
       ) : (
         <div className={styles.empty}>
-          <h3>No clays to mix yet</h3>
-          <p>
-            Add the clays you own in step 1 and your mixing recipe appears here.
-          </p>
+          <h3>No clays yet</h3>
+          <p>Add your clays in step 1 to get a recipe.</p>
         </div>
       )}
     </div>

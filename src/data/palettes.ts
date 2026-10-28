@@ -19,7 +19,7 @@ export const GENERAL_PALETTES: Palette[] = [
   {
     id: 'primary',
     name: 'Primary',
-    info: "This palette uses truly pure colours, real clays are less saturated, so mixes will only be approximate. Primary colours have limited mixing capabilities, many bright colours can't be reached.",
+    info: "Pure screen colours. Real clays are less vivid, so recipes are approximate. Primaries can't reach many bright colours.",
     clays: [
       { id: 'R', hex: '#ff0000', name: 'Red' },
       { id: 'Y', hex: '#ffff00', name: 'Yellow' },
@@ -31,7 +31,7 @@ export const GENERAL_PALETTES: Palette[] = [
   {
     id: 'cmyk',
     name: 'CMYK',
-    info: 'This palette uses truly pure colours, real clays are less saturated, so mixes will only be approximate. CMYK colours allow clean mixes and offer the widest range of colours from just three colour clays.',
+    info: 'Pure screen colours. Real clays are less vivid, so recipes are approximate. CMYK gives the widest range from just three colours.',
     clays: [
       { id: 'C', hex: '#00ffff', name: 'Cyan' },
       { id: 'M', hex: '#ff00ff', name: 'Magenta' },
@@ -61,7 +61,7 @@ export const BRAND_PALETTES: Palette[] = [
   {
     id: 'fimo-professional-tc',
     name: 'FIMO professional - True Colours',
-    info: "Approximate representation of FIMO professional True Colours clays, calibrated against STAEDTLER's mixing chart.",
+    info: "Best-guess FIMO professional True Colours, calibrated against STAEDTLER's mixing chart.",
     // Hexes and strengths are fitted to STAEDTLER's mixing chart by scripts/calibrate-fimo.ts
     clays: [
       { id: 'Y', hex: '#ebcd00', name: 'True yellow', strength: 1.14 },
@@ -78,7 +78,7 @@ export const BRAND_PALETTES: Palette[] = [
 export const CUSTOM_PALETTE: Palette = {
   id: 'custom',
   name: 'My palette',
-  info: 'Add the clays you own. The closer each colour matches the real clay, the more accurate mixing results can be achieved. Include black and white to adjust lightness.',
+  info: 'Add the clays you own and match each colour as closely as you can. Include black and white to mix lighter and darker shades.',
   clays: [],
 }
 
