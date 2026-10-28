@@ -10,14 +10,17 @@ const parse = (value: string | undefined): Theme | undefined => {
   return value === 'light' || value === 'dark' ? value : undefined
 }
 
+// False while prerendering at build time (see vite.config.ts)
+const isBrowser = typeof document !== 'undefined'
+
 // Light/dark choice. Follows the OS until the user picks one, then remembers it.
 // index.html applies the saved choice before first paint, so this reads it back from <html>.
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme | undefined>(() =>
-    parse(document.documentElement.dataset.theme)
+    isBrowser ? parse(document.documentElement.dataset.theme) : undefined
   )
   const [systemDark, setSystemDark] = useState(
-    () => matchMedia(darkQuery).matches
+    () => isBrowser && matchMedia(darkQuery).matches
   )
 
   useEffect(() => {

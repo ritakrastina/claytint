@@ -6,7 +6,7 @@ export function Header() {
       <h1 className={styles.title}>
         Clay<span>Tint</span>
       </h1>
-      <p className={styles.description}>Polymer clay colour recipes</p>
+      <p className={styles.description}>Polymer clay colour mixing recipes</p>
     </header>
   )
 }
