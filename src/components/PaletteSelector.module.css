@@ -20,19 +20,6 @@
   align-items: center;
 }
 
-.info {
-  display: flex;
-  gap: 4px;
-  font-size: 0.875rem;
-  color: var(--muted);
-
-  svg {
-    flex-shrink: 0;
-    /* (1.5 * 0.875rem) = line height; 16px = icon height */
-    margin-top: calc(((1.5 * 0.875rem) - 16px) / 2);
-  }
-}
-
 .swatches {
   display: flex;
   flex-wrap: wrap;

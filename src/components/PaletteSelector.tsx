@@ -4,6 +4,7 @@ import {
   BRAND_PALETTES,
   CUSTOM_PALETTE,
   GENERAL_PALETTES,
+  MAX_CUSTOM_CLAYS,
   resolvePalette,
   type ClayDraft,
 } from '../data/palettes'
@@ -13,7 +14,8 @@ import { ClayDialog } from './ClayDialog'
 import styles from './PaletteSelector.module.css'
 import { ClaySwatch } from './ui/ClaySwatch'
 import { Field } from './ui/Field'
-import { InfoIcon, PlusIcon } from './ui/icons'
+import { PlusIcon } from './ui/icons'
+import { InfoNote } from './ui/Note'
 
 export function PaletteSelector() {
   const paletteId = useStore((state) => state.paletteId)
@@ -54,10 +56,7 @@ export function PaletteSelector() {
           </select>
         </Field>
 
-        <p id="palette-info" className={styles.info}>
-          <InfoIcon width={16} height={16} />
-          {selectedPalette.info}
-        </p>
+        <InfoNote id="palette-info">{selectedPalette.info}</InfoNote>
       </div>
 
       <ul
@@ -85,7 +84,7 @@ export function PaletteSelector() {
           </li>
         ))}
 
-        {isCustom && (
+        {isCustom && customClays.length < MAX_CUSTOM_CLAYS && (
           <li>
             <button
               type="button"
