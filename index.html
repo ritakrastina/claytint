@@ -65,6 +65,12 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      try {
+        if (localStorage.getItem('claytint'))
+          document.getElementById('root').replaceChildren()
+      } catch {}
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
