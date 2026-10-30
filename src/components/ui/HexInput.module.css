@@ -20,7 +20,12 @@
 }
 
 .swatch {
+  position: relative;
+  display: flex;
   flex-shrink: 0;
+}
+
+.swatch-input {
   width: 80px;
   min-height: var(--control-height);
   padding: 0;
@@ -40,5 +45,21 @@
   &::-moz-color-swatch {
     border: none;
     border-radius: calc(var(--radius-sm) - 1px);
+  }
+}
+
+.swatch-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  overflow: visible;
+  color: var(--surface);
+  pointer-events: none;
+
+  path {
+    stroke: var(--accent-strong);
+    stroke-width: 80;
+    stroke-linejoin: round;
+    paint-order: stroke;
   }
 }

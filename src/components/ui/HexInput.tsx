@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { normaliseHex } from '../../utils/colour'
 import styles from './HexInput.module.css'
+import { ColorPickerIcon } from './icons'
 
 interface HexInputProps {
   value: string // valid hex - "#rrggbb"
@@ -28,16 +29,19 @@ export function HexInput({ value, onChange }: HexInputProps) {
         }}
         onBlur={() => setDraft(null)}
       />
-      <input
-        type="color"
-        className={styles.swatch}
-        value={value}
-        aria-label="Choose colour"
-        onChange={(event) => {
-          setDraft(null)
-          onChange(event.target.value)
-        }}
-      />
+      <span className={styles.swatch}>
+        <input
+          type="color"
+          className={styles.swatchInput}
+          value={value}
+          aria-label="Choose colour"
+          onChange={(event) => {
+            setDraft(null)
+            onChange(event.target.value)
+          }}
+        />
+        <ColorPickerIcon className={styles.swatchIcon} width={16} height={16} />
+      </span>
     </span>
   )
 }
