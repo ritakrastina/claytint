@@ -8,19 +8,25 @@
 .title {
   font-family: var(--serif);
   font-size: 3rem;
+}
 
-  span {
-    background: linear-gradient(
-      90deg,
-      var(--tint-1),
-      var(--tint-2) 25%,
-      var(--tint-3) 50%,
-      var(--tint-4) 75%,
-      var(--tint-5)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+.tint {
+  print-color-adjust: exact;
+
+  :nth-child(1) {
+    color: var(--tint-1);
+  }
+
+  :nth-child(2) {
+    color: var(--tint-2);
+  }
+
+  :nth-child(3) {
+    color: var(--tint-3);
+  }
+
+  :nth-child(4) {
+    color: var(--tint-4);
   }
 }
 

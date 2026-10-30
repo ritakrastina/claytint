@@ -13,20 +13,26 @@
 
 .print-header {
   display: none;
-  font-size: 1.125rem;
-  color: var(--muted);
 
   @media print {
     display: block;
   }
+
+  > header {
+    max-width: none;
+    padding: 0 0 8px;
+  }
 }
 
-.print-title {
-  margin-bottom: 4px;
-  font-family: var(--serif);
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--text);
+.print-palette {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+
+  @media print {
+    display: flex;
+  }
 }
 
 .preview {

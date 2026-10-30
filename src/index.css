@@ -19,11 +19,10 @@
   --serif: ui-serif, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-  --tint-1: #c8603f;
-  --tint-2: #d79a2b;
-  --tint-3: #6f9e5a;
-  --tint-4: #2f8a8c;
-  --tint-5: #7d58a8;
+  --tint-1: #cd7438;
+  --tint-2: #938c3c;
+  --tint-3: #2f8a8c;
+  --tint-4: #7d58a8;
 
   --excellent: #1f7a4d;
   --close: #2f6f9f;
@@ -52,11 +51,10 @@
     --on-accent: #1a1c1a;
     --focus: #b6c4b4;
     --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
-    --tint-1: #e8876a;
-    --tint-2: #ebb85a;
-    --tint-3: #9ccb86;
-    --tint-4: #5fbfbf;
-    --tint-5: #b293d8;
+    --tint-1: #e99864;
+    --tint-2: #c4c270;
+    --tint-3: #5fbfbf;
+    --tint-4: #b293d8;
     --excellent: #5fcf95;
     --close: #79b6e6;
     --approx: #e3ad45;
@@ -79,11 +77,10 @@
     --on-accent: #1a1c1a;
     --focus: #b6c4b4;
     --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
-    --tint-1: #e8876a;
-    --tint-2: #ebb85a;
-    --tint-3: #9ccb86;
-    --tint-4: #5fbfbf;
-    --tint-5: #b293d8;
+    --tint-1: #e99864;
+    --tint-2: #c4c270;
+    --tint-3: #5fbfbf;
+    --tint-4: #b293d8;
     --excellent: #5fcf95;
     --close: #79b6e6;
     --approx: #e3ad45;

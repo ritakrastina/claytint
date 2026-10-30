@@ -9,9 +9,10 @@ import {
   type GapReason,
   type Ingredient,
 } from '../utils/mixing'
+import { Header } from './Header'
 import styles from './MixingGuide.module.css'
 import { ClaySwatch } from './ui/ClaySwatch'
-import { PrintIcon } from './ui/icons'
+import { PaletteIcon, PrintIcon } from './ui/icons'
 import { ErrorNote, InfoNote, WarningNote } from './ui/Note'
 
 const GAP_INFO: Record<GapReason, string> = {
@@ -64,12 +65,9 @@ export function MixingGuide() {
       {recipe ? (
         <>
           <div className={styles.recipe}>
-            <header className={styles.printHeader}>
-              <p className={styles.printTitle}>
-                ClayTint - polymer clay colour recipe
-              </p>
-              <p>Palette: {name}</p>
-            </header>
+            <div className={styles.printHeader}>
+              <Header />
+            </div>
 
             <div className={styles.preview}>
               <div
@@ -97,6 +95,11 @@ export function MixingGuide() {
                 </div>
               </div>
             </div>
+
+            <p className={styles.printPalette}>
+              <PaletteIcon width={18} height={18} />
+              {name}
+            </p>
 
             <div className={styles.toolbar}>
               <fieldset className={styles.switch} aria-label="Show amounts as">
