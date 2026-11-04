@@ -20,9 +20,9 @@
   --radius-sm: 8px;
   --control-height: 2.5rem;
 
-  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, sans-serif;
   --serif: ui-serif, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
-  --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
 
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
