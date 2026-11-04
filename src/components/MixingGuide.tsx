@@ -28,6 +28,11 @@ const GAP_INFO: Record<GapReason, string> = {
 const formatParts = (parts: number) =>
   `${parts} ${parts === 1 ? 'part' : 'parts'}`
 
+// iOS PWA ignore window.print()
+const canPrint =
+  typeof navigator === 'undefined' ||
+  !('standalone' in navigator && navigator.standalone === true)
+
 export function MixingGuide() {
   const colour = useStore((state) => state.colour)
   const paletteId = useStore((state) => state.paletteId)
@@ -165,14 +170,16 @@ export function MixingGuide() {
               </li>
             </ul>
 
-            <button
-              type="button"
-              className={styles.printButton}
-              onClick={() => window.print()}
-            >
-              <PrintIcon width={16} height={16} />
-              Print
-            </button>
+            {canPrint && (
+              <button
+                type="button"
+                className={styles.printButton}
+                onClick={() => window.print()}
+              >
+                <PrintIcon width={16} height={16} />
+                Print
+              </button>
+            )}
           </div>
 
           <footer className={styles.notes}>
