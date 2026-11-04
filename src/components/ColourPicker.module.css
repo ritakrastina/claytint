@@ -33,7 +33,7 @@
   height: 20px;
   border: 2px solid var(--surface);
   border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--accent-strong);
+  box-shadow: 0 0 0 1px var(--text);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -49,7 +49,7 @@
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid var(--accent-strong);
+    border: 2px solid var(--text);
     border-radius: 50%;
     background: var(--surface);
   }
@@ -57,7 +57,7 @@
   &::-moz-range-thumb {
     width: 20px;
     height: 20px;
-    border: 2px solid var(--accent-strong);
+    border: 2px solid var(--text);
     border-radius: 50%;
     background: var(--surface);
   }

@@ -21,7 +21,7 @@
 
   svg {
     flex-shrink: 0;
-    color: var(--accent);
+    color: var(--muted);
   }
 }
 

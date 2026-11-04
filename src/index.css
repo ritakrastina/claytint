@@ -1,16 +1,21 @@
 :root {
-  --bg: #efefec;
-  --surface: #ffffff;
-  --surface-2: #f5f5f2;
-  --surface-3: #e5e6e1;
-  --text: #1f221f;
-  --muted: #686c66;
-  --border: #e0e1dc;
-  --accent: #5f6e5e;
-  --accent-strong: #262a26;
-  --on-accent: #ffffff;
-  --focus: #5f6e5e;
-  --shadow: 0 1px 2px rgb(30 32 28 / 4%), 0 8px 24px rgb(30 32 28 / 5%);
+  --bg: light-dark(#efefec, #151615);
+  --surface: light-dark(#ffffff, #1d1f1d);
+  --surface-2: light-dark(#f5f5f2, #242624);
+  --surface-3: light-dark(#e5e6e1, #2c2e2b);
+  --text: light-dark(#1f221f, #ebece8);
+  --muted: light-dark(#686c66, #a3a79f);
+  --warning: light-dark(#a36a00, #e3ad45);
+  --error: light-dark(#b3361f, #f08a72);
+  --border: light-dark(#e0e1dc, #333631);
+  --focus: light-dark(#5f6e5e, #b6c4b4);
+
+  --tint-1: light-dark(#c86f33, #e99864);
+  --tint-2: light-dark(#938c3c, #c4c270);
+  --tint-3: light-dark(#2f8a8c, #5fbfbf);
+  --tint-4: light-dark(#7d58a8, #b293d8);
+
+  --shadow: 0 4px 16px light-dark(rgb(30 32 28 / 6%), rgb(0 0 0 / 30%));
   --radius: 16px;
   --radius-sm: 8px;
   --control-height: 2.5rem;
@@ -19,77 +24,21 @@
   --serif: ui-serif, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
-  --tint-1: #cd7438;
-  --tint-2: #938c3c;
-  --tint-3: #2f8a8c;
-  --tint-4: #7d58a8;
-
-  --excellent: #1f7a4d;
-  --close: #2f6f9f;
-  --approx: #a36a00;
-  --rough: #b3361f;
-
   font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   color: var(--text);
   background: var(--bg);
   color-scheme: light dark;
 }
 
-/* Dark mode is screen only; printing always uses the light tokens */
-@media screen and (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --bg: #151615;
-    --surface: #1d1f1d;
-    --surface-2: #242624;
-    --surface-3: #2c2e2b;
-    --text: #ebece8;
-    --muted: #a3a79f;
-    --border: #333631;
-    --accent: #a3b3a1;
-    --accent-strong: #e3e6df;
-    --on-accent: #1a1c1a;
-    --focus: #b6c4b4;
-    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
-    --tint-1: #e99864;
-    --tint-2: #c4c270;
-    --tint-3: #5fbfbf;
-    --tint-4: #b293d8;
-    --excellent: #5fcf95;
-    --close: #79b6e6;
-    --approx: #e3ad45;
-    --rough: #f08a72;
-  }
-}
-
-@media screen {
-  :root[data-theme='dark'] {
-    color-scheme: dark;
-    --bg: #151615;
-    --surface: #1d1f1d;
-    --surface-2: #242624;
-    --surface-3: #2c2e2b;
-    --text: #ebece8;
-    --muted: #a3a79f;
-    --border: #333631;
-    --accent: #a3b3a1;
-    --accent-strong: #e3e6df;
-    --on-accent: #1a1c1a;
-    --focus: #b6c4b4;
-    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
-    --tint-1: #e99864;
-    --tint-2: #c4c270;
-    --tint-3: #5fbfbf;
-    --tint-4: #b293d8;
-    --excellent: #5fcf95;
-    --close: #79b6e6;
-    --approx: #e3ad45;
-    --rough: #f08a72;
-  }
-}
-
+/* ligh--dark() above follows color-scheme, which data-theme overrides */
 :root[data-theme='light'] {
   color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 *,
@@ -101,11 +50,6 @@
 * {
   margin: 0;
   padding: 0;
-}
-
-body {
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
 }
 
 h1,
@@ -149,10 +93,14 @@ html:has(dialog:modal) {
   overflow: hidden;
 }
 
-/* Printing elements marked with data-print-area */
+/* Printing elements marked with data-print-area, always using light color-scheme */
 @media print {
   :root,
-  body {
+  :root[data-theme] {
+    color-scheme: light;
+  }
+
+  :root {
     background: none;
   }
 

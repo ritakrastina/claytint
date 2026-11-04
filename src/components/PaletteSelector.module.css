@@ -44,7 +44,7 @@
   background: none;
 
   &:hover {
-    border-color: var(--accent);
+    border-color: var(--muted);
   }
 }
 
@@ -60,6 +60,6 @@
 
   &:hover {
     color: var(--text);
-    border-color: var(--accent);
+    border-color: var(--muted);
   }
 }

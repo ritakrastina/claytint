@@ -15,9 +15,9 @@
 }
 
 .warning {
-  color: var(--approx);
+  color: var(--warning);
 }
 
 .error {
-  color: var(--rough);
+  color: var(--error);
 }

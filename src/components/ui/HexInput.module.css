@@ -15,7 +15,7 @@
   border-radius: var(--radius-sm);
 
   &[aria-invalid='true'] {
-    outline-color: var(--rough);
+    outline-color: var(--error);
   }
 }
 
@@ -57,7 +57,7 @@
   pointer-events: none;
 
   path {
-    stroke: var(--accent-strong);
+    stroke: var(--text);
     stroke-width: 80;
     stroke-linejoin: round;
     paint-order: stroke;
