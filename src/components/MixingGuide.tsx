@@ -9,11 +9,18 @@ import {
   type GapReason,
   type Ingredient,
 } from '../utils/mixing'
+import {
+  formatParts,
+  formatWeight,
+  gramsToUnit,
+  WEIGHT_UNITS,
+} from '../utils/units'
 import { Header } from './Header'
 import styles from './MixingGuide.module.css'
 import { ClaySwatch } from './ui/ClaySwatch'
 import { PaletteIcon, PrintIcon } from './ui/icons'
 import { ErrorNote, InfoNote, WarningNote } from './ui/Note'
+import { UnitSwitch } from './ui/UnitSwitch'
 
 const GAP_INFO: Record<GapReason, string> = {
   'too-vivid':
@@ -25,9 +32,6 @@ const GAP_INFO: Record<GapReason, string> = {
   hue: "Target is out of these clays' reach, so the mix leans to a nearby hue.",
 }
 
-const formatParts = (parts: number) =>
-  `${parts} ${parts === 1 ? 'part' : 'parts'}`
-
 // iOS PWA ignore window.print()
 const canPrint =
   typeof navigator === 'undefined' ||
@@ -37,8 +41,8 @@ export function MixingGuide() {
   const colour = useStore((state) => state.colour)
   const paletteId = useStore((state) => state.paletteId)
   const customClays = useStore((state) => state.customClays)
-  const weight = useStore((state) => state.weight)
-  const setWeight = useStore((state) => state.setWeight)
+  const totalGrams = useStore((state) => state.totalGrams)
+  const setTotalGrams = useStore((state) => state.setTotalGrams)
   const unit = useStore((state) => state.unit)
   const setUnit = useStore((state) => state.setUnit)
 
@@ -58,12 +62,12 @@ export function MixingGuide() {
   const getAmount = ({ fraction, parts }: Ingredient) =>
     unit === 'parts'
       ? formatParts(parts ?? 0)
-      : `${(fraction * weight).toFixed(2)} g`
+      : formatWeight(fraction * totalGrams, unit)
 
   const getTotalAmount = (ingredients: Ingredient[]) =>
     unit === 'parts'
       ? formatParts(ingredients.reduce((sum, { parts = 0 }) => sum + parts, 0))
-      : `${weight.toFixed(2)} g`
+      : formatWeight(totalGrams, unit)
 
   return (
     <div className={styles.mixingGuide} data-print-area>
@@ -107,48 +111,29 @@ export function MixingGuide() {
             </p>
 
             <div className={styles.toolbar}>
-              <fieldset className={styles.switch} aria-label="Show amounts as">
-                <label>
-                  <input
-                    type="radio"
-                    name="unit"
-                    checked={unit === 'parts'}
-                    onChange={() => setUnit('parts')}
-                  />
-                  Parts
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="unit"
-                    checked={unit === 'grams'}
-                    onChange={() => setUnit('grams')}
-                  />
-                  Grams
-                </label>
-              </fieldset>
+              <UnitSwitch value={unit} onChange={setUnit} />
 
-              {unit === 'grams' && (
-                <div className={styles.weight}>
-                  <input
-                    type="number"
-                    inputMode="decimal"
-                    min={1}
-                    step={1}
-                    aria-label="Total weight"
-                    value={weightDraft ?? weight}
-                    aria-invalid={
-                      weightDraft !== null && !(Number(weightDraft) > 0)
+              {unit !== 'parts' && (
+                <input
+                  className={styles.weight}
+                  type="number"
+                  inputMode="decimal"
+                  min={WEIGHT_UNITS[unit].step}
+                  step={WEIGHT_UNITS[unit].step}
+                  aria-label="Total weight"
+                  value={weightDraft ?? gramsToUnit(totalGrams, unit)}
+                  aria-invalid={
+                    weightDraft !== null && !(Number(weightDraft) > 0)
+                  }
+                  onChange={(event) => {
+                    setWeightDraft(event.target.value)
+                    const value = Number(event.target.value)
+                    if (value > 0) {
+                      setTotalGrams(value * WEIGHT_UNITS[unit].gramsPerUnit)
                     }
-                    onChange={(event) => {
-                      setWeightDraft(event.target.value)
-                      const grams = Number(event.target.value)
-                      if (grams > 0) setWeight(grams)
-                    }}
-                    onBlur={() => setWeightDraft(null)}
-                  />
-                  <span>g</span>
-                </div>
+                  }}
+                  onBlur={() => setWeightDraft(null)}
+                />
               )}
             </div>
 

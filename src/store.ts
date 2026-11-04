@@ -3,19 +3,20 @@ import { persist } from 'zustand/middleware'
 
 import { PALETTES, type Clay, type ClayDraft } from './data/palettes'
 import { DEFAULT_COLOUR, type Hsl } from './utils/colour'
+import type { Unit } from './utils/units'
 
 interface State {
   paletteId: string
   customClays: Clay[]
   colour: Hsl
-  weight: number
-  unit: 'parts' | 'grams'
+  totalGrams: number
+  unit: Unit
   selectPalette: (id: string) => void
   saveClay: (draft: ClayDraft) => void
   removeClay: (id: string) => void
   setColour: (colour: Hsl) => void
-  setWeight: (weight: number) => void
-  setUnit: (unit: 'parts' | 'grams') => void
+  setTotalGrams: (totalGrams: number) => void
+  setUnit: (unit: Unit) => void
 }
 
 // App state saved in localStorage
@@ -25,7 +26,7 @@ export const useStore = create<State>()(
       paletteId: PALETTES[0].id,
       customClays: [],
       colour: DEFAULT_COLOUR,
-      weight: 25,
+      totalGrams: 50,
       unit: 'parts',
 
       selectPalette: (paletteId) => set({ paletteId }),
@@ -44,7 +45,7 @@ export const useStore = create<State>()(
 
       setColour: (colour) => set({ colour }),
 
-      setWeight: (weight) => set({ weight }),
+      setTotalGrams: (totalGrams) => set({ totalGrams }),
 
       setUnit: (unit) => set({ unit }),
     }),
