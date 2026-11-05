@@ -58,7 +58,7 @@
 
   path {
     stroke: var(--text);
-    stroke-width: 80;
+    stroke-width: 2;
     stroke-linejoin: round;
     paint-order: stroke;
   }
