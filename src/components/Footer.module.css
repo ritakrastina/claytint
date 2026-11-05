@@ -30,10 +30,7 @@
   color: var(--muted);
 }
 
-.theme-switch button:hover {
-  color: var(--text);
-}
-
+.theme-switch button:hover,
 .theme-switch button[aria-pressed='true'] {
   background: var(--surface-3);
   color: var(--text);

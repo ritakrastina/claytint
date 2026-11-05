@@ -1,6 +1,6 @@
 import { useTheme } from '../hooks/useTheme'
 import styles from './Footer.module.css'
-import { MoonIcon, SunIcon } from './ui/icons'
+import { MoonIcon, ScreenIcon, SunIcon } from './ui/icons'
 
 const year = new Date().getFullYear()
 
@@ -30,6 +30,15 @@ export function Footer() {
             onClick={() => setTheme('dark')}
           >
             <MoonIcon width={16} height={16} />
+          </button>
+          <button
+            type="button"
+            aria-label="System mode"
+            title="System mode"
+            aria-pressed={theme === 'system'}
+            onClick={() => setTheme('system')}
+          >
+            <ScreenIcon width={16} height={16} />
           </button>
         </div>
       </div>
