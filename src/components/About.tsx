@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 
 import styles from './About.module.css'
 import {
+  DownloadIcon,
   FlameIcon,
   FlaskIcon,
   HeartIcon,
@@ -46,6 +47,11 @@ const ITEMS: Item[] = [
     icon: <TagIcon width={20} height={20} />,
     title: 'Not affiliated',
     text: 'ClayTint is independent and not affiliated with or endorsed by STAEDTLER. FIMO is their trademark. Brand colours are my best-guess approximations.',
+  },
+  {
+    icon: <DownloadIcon width={20} height={20} />,
+    title: 'Works as an app',
+    text: 'Add ClayTint to your device: look for the "Add to Home Screen", "Install" or "Share" option in the browser\'s menu. Recipes work offline.',
   },
 ]
 
