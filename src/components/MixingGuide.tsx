@@ -1,73 +1,36 @@
-import { useDeferredValue, useMemo, useState } from 'react'
+import { useState } from 'react'
 
-import { resolvePalette } from '../data/palettes'
+import { useRecipe } from '../hooks/useRecipe'
 import { useStore } from '../store'
-import { hslToHex } from '../utils/colour'
-import {
-  explainGap,
-  findBestRecipe,
-  type GapReason,
-  type Ingredient,
-} from '../utils/mixing'
-import {
-  formatParts,
-  formatWeight,
-  gramsToUnit,
-  WEIGHT_UNITS,
-} from '../utils/units'
+import { saveImage, shareImage } from '../utils/recipeImage'
+import { gramsToUnit, WEIGHT_UNITS } from '../utils/units'
 import { Header } from './Header'
 import styles from './MixingGuide.module.css'
 import { ClaySwatch } from './ui/ClaySwatch'
-import { PaletteIcon, PrintIcon } from './ui/icons'
+import { DownloadIcon, PaletteIcon, PrintIcon, ShareIcon } from './ui/icons'
 import { ErrorNote, InfoNote, WarningNote } from './ui/Note'
 import { UnitSwitch } from './ui/UnitSwitch'
 
-const GAP_INFO: Record<GapReason, string> = {
-  'too-vivid':
-    'Target is more vivid than these clays can reach, so this is the closest duller mix.',
-  'too-muted':
-    'Target is greyer than these clays can reach, so this is the closest brighter mix.',
-  'too-light': 'Target is lighter than these clays can reach.',
-  'too-dark': 'Target is darker than these clays can reach.',
-  hue: "Target is out of these clays' reach, so the mix leans to a nearby hue.",
-}
-
-// iOS PWA ignore window.print()
+// iOS PWA ignores window.print()
 const canPrint =
   typeof navigator === 'undefined' ||
   !('standalone' in navigator && navigator.standalone === true)
 
+// Check if browser can share files
+const canShare =
+  typeof navigator !== 'undefined' &&
+  navigator.canShare?.({
+    files: [new File([], 'recipe.png', { type: 'image/png' })],
+  }) === true
+
 export function MixingGuide() {
-  const colour = useStore((state) => state.colour)
-  const paletteId = useStore((state) => state.paletteId)
-  const customClays = useStore((state) => state.customClays)
-  const totalGrams = useStore((state) => state.totalGrams)
-  const setTotalGrams = useStore((state) => state.setTotalGrams)
+  const recipe = useRecipe()
   const unit = useStore((state) => state.unit)
   const setUnit = useStore((state) => state.setUnit)
+  const totalGrams = useStore((state) => state.totalGrams)
+  const setTotalGrams = useStore((state) => state.setTotalGrams)
 
   const [weightDraft, setWeightDraft] = useState<string | null>(null)
-
-  const { name, clays } = resolvePalette(paletteId, customClays)
-  // Deferred so the colour picker stays responsive while the recipe is found
-  const targetHex = useDeferredValue(hslToHex(colour))
-  const bestRecipe = useMemo(
-    () => findBestRecipe(targetHex, clays),
-    [targetHex, clays]
-  )
-
-  // Rounding to whole parts may shift the colour, so show the rounded recipe
-  const recipe = unit === 'parts' ? bestRecipe?.rounded : bestRecipe?.exact
-
-  const getAmount = ({ fraction, parts }: Ingredient) =>
-    unit === 'parts'
-      ? formatParts(parts ?? 0)
-      : formatWeight(fraction * totalGrams, unit)
-
-  const getTotalAmount = (ingredients: Ingredient[]) =>
-    unit === 'parts'
-      ? formatParts(ingredients.reduce((sum, { parts = 0 }) => sum + parts, 0))
-      : formatWeight(totalGrams, unit)
 
   return (
     <div className={styles.mixingGuide} data-print-area>
@@ -81,16 +44,16 @@ export function MixingGuide() {
             <div className={styles.preview}>
               <div
                 className={styles.block}
-                style={{ backgroundColor: targetHex }}
+                style={{ backgroundColor: recipe.targetHex }}
               >
                 <div className={styles.chip}>
                   Target
-                  <span className={styles.hex}>{targetHex}</span>
+                  <span className={styles.hex}>{recipe.targetHex}</span>
                 </div>
               </div>
               <div
                 className={styles.block}
-                style={{ backgroundColor: recipe.hex }}
+                style={{ backgroundColor: recipe.mixHex }}
               >
                 <div className={styles.chip}>
                   <span className={styles.label}>
@@ -100,14 +63,14 @@ export function MixingGuide() {
                     )}
                     Mix
                   </span>
-                  <span className={styles.hex}>{recipe.hex}</span>
+                  <span className={styles.hex}>{recipe.mixHex}</span>
                 </div>
               </div>
             </div>
 
             <p className={styles.printPalette}>
               <PaletteIcon width={18} height={18} />
-              {name}
+              {recipe.paletteName}
             </p>
 
             <div className={styles.toolbar}>
@@ -139,48 +102,59 @@ export function MixingGuide() {
 
             <ul className={styles.ingredients} aria-label="Clays to mix">
               {recipe.ingredients.map((ingredient) => (
-                <li key={ingredient.clay.id} className={styles.ingredient}>
-                  <ClaySwatch
-                    hex={ingredient.clay.hex}
-                    label={ingredient.clay.name || ingredient.clay.hex}
-                  />
-                  <span className={styles.amount}>{getAmount(ingredient)}</span>
+                <li key={ingredient.id} className={styles.ingredient}>
+                  <ClaySwatch hex={ingredient.hex} label={ingredient.label} />
+                  <span className={styles.amount}>{ingredient.amount}</span>
                 </li>
               ))}
 
               <li className={styles.printTotal}>
-                <span className={styles.amount}>
-                  {getTotalAmount(recipe.ingredients)}
-                </span>
+                <span className={styles.amount}>{recipe.total}</span>
               </li>
             </ul>
 
-            {canPrint && (
+            <div className={styles.actions}>
               <button
                 type="button"
-                className={styles.printButton}
-                onClick={() => window.print()}
+                className={styles.actionButton}
+                onClick={() => saveImage(recipe)}
               >
-                <PrintIcon width={16} height={16} />
-                Print
+                <DownloadIcon width={16} height={16} />
+                Save
               </button>
-            )}
+
+              {canShare && (
+                <button
+                  type="button"
+                  className={styles.actionButton}
+                  onClick={() => shareImage(recipe)}
+                >
+                  <ShareIcon width={16} height={16} />
+                  Share
+                </button>
+              )}
+
+              {canPrint && (
+                <button
+                  type="button"
+                  className={styles.actionButton}
+                  onClick={() => window.print()}
+                >
+                  <PrintIcon width={16} height={16} />
+                  Print
+                </button>
+              )}
+            </div>
           </div>
 
           <footer className={styles.notes}>
             {recipe.quality === 'rough' && (
-              <ErrorNote>
-                {GAP_INFO[explainGap(targetHex, recipe.hex)]}
-              </ErrorNote>
+              <ErrorNote>{recipe.qualityInfo}</ErrorNote>
             )}
             {recipe.quality === 'approximate' && (
-              <WarningNote>
-                {GAP_INFO[explainGap(targetHex, recipe.hex)]}
-              </WarningNote>
+              <WarningNote>{recipe.qualityInfo}</WarningNote>
             )}
-            <InfoNote>
-              Real clay may look different, so mix a small test chip first.
-            </InfoNote>
+            <InfoNote>{recipe.testChipInfo}</InfoNote>
           </footer>
         </>
       ) : (

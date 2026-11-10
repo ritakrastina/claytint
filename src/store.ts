@@ -15,8 +15,8 @@ interface State {
   saveClay: (draft: ClayDraft) => void
   removeClay: (id: string) => void
   setColour: (colour: Hsl) => void
-  setTotalGrams: (totalGrams: number) => void
   setUnit: (unit: Unit) => void
+  setTotalGrams: (totalGrams: number) => void
 }
 
 // App state saved in localStorage
@@ -45,9 +45,9 @@ export const useStore = create<State>()(
 
       setColour: (colour) => set({ colour }),
 
-      setTotalGrams: (totalGrams) => set({ totalGrams }),
-
       setUnit: (unit) => set({ unit }),
+
+      setTotalGrams: (totalGrams) => set({ totalGrams }),
     }),
     {
       name: 'claytint',

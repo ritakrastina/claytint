@@ -146,8 +146,18 @@
   }
 }
 
-.print-button {
-  align-self: flex-end;
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+
+  @media print {
+    display: none;
+  }
+}
+
+.action-button {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -159,10 +169,6 @@
 
   &:hover {
     background: var(--surface-2);
-  }
-
-  @media print {
-    display: none;
   }
 }
 
