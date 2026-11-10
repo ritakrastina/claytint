@@ -23,6 +23,15 @@ const canShare =
     files: [new File([], 'recipe.png', { type: 'image/png' })],
   }) === true
 
+// iOS downloads go to Files, but share saves to Photos
+const isIOS =
+  typeof navigator !== 'undefined' &&
+  (/iPhone|iPad/.test(navigator.userAgent) ||
+    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1))
+
+// Keep Save as fallback if Share is not possible on iOS
+const canSave = !(isIOS && canShare)
+
 export function MixingGuide() {
   const recipe = useRecipe()
   const unit = useStore((state) => state.unit)
@@ -114,14 +123,16 @@ export function MixingGuide() {
             </ul>
 
             <div className={styles.actions}>
-              <button
-                type="button"
-                className={styles.actionButton}
-                onClick={() => saveImage(recipe)}
-              >
-                <DownloadIcon width={16} height={16} />
-                Save
-              </button>
+              {canSave && (
+                <button
+                  type="button"
+                  className={styles.actionButton}
+                  onClick={() => saveImage(recipe)}
+                >
+                  <DownloadIcon width={16} height={16} />
+                  Save
+                </button>
+              )}
 
               {canShare && (
                 <button
