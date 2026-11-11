@@ -82,7 +82,7 @@ export const CUSTOM_PALETTE: Palette = {
   clays: [],
 }
 
-export const MAX_CUSTOM_CLAYS = 20
+export const MAX_CUSTOM_CLAYS = 15
 
 export const PALETTES: Palette[] = [
   ...GENERAL_PALETTES,
