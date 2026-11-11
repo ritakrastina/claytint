@@ -1,0 +1,15 @@
+.weight {
+  flex: 0 1 100px;
+  min-width: 0;
+  min-height: var(--control-height);
+  padding: 8px 12px;
+  font-family: var(--mono);
+  text-align: right;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+
+  &[aria-invalid='true'] {
+    outline-color: var(--error);
+  }
+}

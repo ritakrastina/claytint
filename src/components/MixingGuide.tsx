@@ -1,15 +1,13 @@
-import { useState } from 'react'
-
 import { useRecipe } from '../hooks/useRecipe'
 import { useStore } from '../store'
 import { saveImage, shareImage } from '../utils/recipeImage'
-import { gramsToUnit, WEIGHT_UNITS } from '../utils/units'
 import { Header } from './Header'
 import styles from './MixingGuide.module.css'
 import { ClaySwatch } from './ui/ClaySwatch'
 import { DownloadIcon, PaletteIcon, PrintIcon, ShareIcon } from './ui/icons'
 import { ErrorNote, InfoNote, WarningNote } from './ui/Note'
 import { UnitSwitch } from './ui/UnitSwitch'
+import { WeightInput } from './ui/WeightInput'
 
 // iOS PWA ignores window.print()
 const canPrint =
@@ -38,8 +36,6 @@ export function MixingGuide() {
   const setUnit = useStore((state) => state.setUnit)
   const totalGrams = useStore((state) => state.totalGrams)
   const setTotalGrams = useStore((state) => state.setTotalGrams)
-
-  const [weightDraft, setWeightDraft] = useState<string | null>(null)
 
   return (
     <div className={styles.mixingGuide} data-print-area>
@@ -86,30 +82,19 @@ export function MixingGuide() {
               <UnitSwitch value={unit} onChange={setUnit} />
 
               {unit !== 'parts' && (
-                <input
-                  className={styles.weight}
-                  type="number"
-                  inputMode="decimal"
-                  min={WEIGHT_UNITS[unit].step}
-                  step={WEIGHT_UNITS[unit].step}
-                  aria-label="Total weight"
-                  value={weightDraft ?? gramsToUnit(totalGrams, unit)}
-                  aria-invalid={
-                    weightDraft !== null && !(Number(weightDraft) > 0)
-                  }
-                  onChange={(event) => {
-                    setWeightDraft(event.target.value)
-                    const value = Number(event.target.value)
-                    if (value > 0) {
-                      setTotalGrams(value * WEIGHT_UNITS[unit].gramsPerUnit)
-                    }
-                  }}
-                  onBlur={() => setWeightDraft(null)}
+                <WeightInput
+                  grams={totalGrams}
+                  unit={unit}
+                  onChange={setTotalGrams}
                 />
               )}
             </div>
 
-            <ul className={styles.ingredients} aria-label="Clays to mix">
+            <ul
+              className={styles.ingredients}
+              aria-label="Clays to mix"
+              aria-live="polite"
+            >
               {recipe.ingredients.map((ingredient) => (
                 <li key={ingredient.id} className={styles.ingredient}>
                   <ClaySwatch hex={ingredient.hex} label={ingredient.label} />
