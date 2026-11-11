@@ -51,6 +51,7 @@ export const useStore = create<State>()(
     }),
     {
       name: 'claytint',
+      version: 0,
     }
   )
 )
