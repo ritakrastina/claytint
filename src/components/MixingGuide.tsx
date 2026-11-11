@@ -1,5 +1,6 @@
 import { useRecipe } from '../hooks/useRecipe'
 import { useStore } from '../store'
+import { canPrint, canSave, canShare } from '../utils/platform'
 import { saveImage, shareImage } from '../utils/recipeImage'
 import { Header } from './Header'
 import styles from './MixingGuide.module.css'
@@ -8,27 +9,6 @@ import { DownloadIcon, PaletteIcon, PrintIcon, ShareIcon } from './ui/icons'
 import { ErrorNote, InfoNote, WarningNote } from './ui/Note'
 import { UnitSwitch } from './ui/UnitSwitch'
 import { WeightInput } from './ui/WeightInput'
-
-// iOS PWA ignores window.print()
-const canPrint =
-  typeof navigator === 'undefined' ||
-  !('standalone' in navigator && navigator.standalone === true)
-
-// Check if browser can share files
-const canShare =
-  typeof navigator !== 'undefined' &&
-  navigator.canShare?.({
-    files: [new File([], 'recipe.png', { type: 'image/png' })],
-  }) === true
-
-// iOS downloads go to Files, but share saves to Photos
-const isIOS =
-  typeof navigator !== 'undefined' &&
-  (/iPhone|iPad/.test(navigator.userAgent) ||
-    (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1))
-
-// Keep Save as fallback if Share is not possible on iOS
-const canSave = !(isIOS && canShare)
 
 export function MixingGuide() {
   const recipe = useRecipe()
