@@ -41,7 +41,7 @@ const ITEMS: Item[] = [
   {
     icon: <HeartIcon width={20} height={20} />,
     title: 'Free hobby project',
-    text: 'Made for my own clay work and shared in case it helps. No ads, accounts or tracking. Your clays and settings stay only in this browser. Provided as-is.',
+    text: 'Made for my own clay work and shared in case it helps. No ads, no cookies, just anonymous visit counts. Your clays and settings stay only in this browser. Provided as-is.',
   },
   {
     icon: <TagIcon width={20} height={20} />,
